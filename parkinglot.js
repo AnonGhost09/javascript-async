@@ -92,39 +92,37 @@ const leave = (nopol) => new Promise((resolve) => {
     },leaveTime)
 });
   
-const check = () => {
+const check = () =>  new Promise((resolve) => {
     setTimeout(async () => {
         console.log(data);
+        resolve(parkingLot);
     },checkTime)
-}
+})
 
 
 async function wrap(){
     try{
-        await parkingLot(5);
-
         let car = new Car("B02E1","DIPA");
-        await park(car);
-
         let car2 = new Car("B02E2","DIPA");
-        await park(car2);
-
         let car3 = new Car("B02E3","DIPA");
-        await park(car3);
-
         let car4 = new Car("B02E4","DIPA");
-        await park(car4);
-
         let car5 = new Car("B02E4","DIPA");
-        await park(car5);
-
         let car6 = new Car("B02E5","DIPA");
-        await park(car6);
 
-        await leave("B02E6");
-        await leave("B02E1");
+        let parkirs = await parkingLot(5);
+
+        await parkirs.park(car);
+        await parkirs.park(car2);
+        await parkirs.park(car3);
+        await parkirs.park(car4);
+        await parkirs.park(car5);
+        await parkirs.park(car6);
+
+        await parkirs.leave("B02E6");
+        await parkirs.leave("B02E1");
       
-        check();
+       parkirs.check();
+     
     }catch(e){
         console.log(e.message);
     }
