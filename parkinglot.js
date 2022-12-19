@@ -68,18 +68,19 @@ const park = async (car) => new Promise((resolve) => {
 const leave = (nopol) => new Promise((resolve) => {
     setTimeout(() => {
         let carLeave = {}
+        let isLeave = false;
 
         parkedCars = data.parkedCars.filter((car) => {
             if(car.getNopol() === nopol){
                carLeave.nopol = car.getNopol();
                carLeave.pemilik = car.getPemilik();
+               isLeave = true;
             }
             return car.getNopol() !== nopol;
         });
-    
+        
 
-
-        if(carLeave.length){
+        if(isLeave){
             remaining = data.remaining+1;
 
             data = {...data, remaining, parkedCars};
